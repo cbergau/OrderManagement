@@ -19,5 +19,10 @@ namespace OrderManagement.Repository
             order.Id ??= Guid.NewGuid().ToString();
             Orders[order.Id] = order;
         }
+
+        public IEnumerable<Order> FindAll()
+        {
+            return Orders.Values;
+        }
     }
 }

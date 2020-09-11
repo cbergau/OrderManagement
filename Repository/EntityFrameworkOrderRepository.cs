@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using OrderManagement.Entities;
 using OrderManagement.Repository.Entity;
@@ -31,6 +33,15 @@ namespace OrderManagement.Repository
             }
 
             db.SaveChanges();
+        }
+
+        public IEnumerable<Order> FindAll()
+        {
+            using var db = new OrderContext();
+
+            return db.Orders
+                .Select(orderEntity => new Order {Id = orderEntity.id, State = orderEntity.state})
+                .ToList();
         }
 
         private static OrderEntity CreateNewOrder(Order order, DbContext db)

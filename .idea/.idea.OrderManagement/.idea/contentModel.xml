@@ -29,8 +29,6 @@
       <e p="OrderManagement.csproj" t="IncludeRecursive" />
       <e p="OrderManagement.sln" t="IncludeFlat" />
       <e p="orders.db" t="Include" />
-      <e p="orders.db-shm" t="Include" />
-      <e p="orders.db-wal" t="Include" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="Program.cs" t="Include" />
       <e p="Properties" t="Include">
@@ -51,6 +49,9 @@
         </e>
         <e p="GetOrder" t="Include">
           <e p="GetOrderInteractor.cs" t="Include" />
+        </e>
+        <e p="GetOrders" t="Include">
+          <e p="GetOrdersInteractor.cs" t="Include" />
         </e>
         <e p="SubmitOrder" t="Include">
           <e p="SubmitOrderInteractor.cs" t="Include" />

@@ -1,4 +1,5 @@
-﻿using OrderManagement.Entities;
+﻿using System.Collections.Generic;
+using OrderManagement.Entities;
 
 namespace OrderManagement.Repository
 {
@@ -6,5 +7,6 @@ namespace OrderManagement.Repository
     {
         public Order Find(string orderId);
         public void Save(Order order);
+        public IEnumerable<Order> FindAll();
     }
 }
