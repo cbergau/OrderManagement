@@ -27,7 +27,7 @@ namespace OrderManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.Add(ServiceDescriptor.Singleton(typeof(IOrderRepository), new InMemoryOrderRepository()));
+            services.AddSingleton<IOrderRepository>(provider => new InMemoryOrderRepository());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
