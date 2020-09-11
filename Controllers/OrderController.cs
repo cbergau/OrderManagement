@@ -13,12 +13,12 @@ namespace OrderManagement.Controllers
     public class OrderController : ControllerBase
     {
         private readonly ILogger<OrderController> _logger;
-        private readonly InMemoryOrderRepository _repo;
+        private readonly IOrderRepository _repo;
 
-        public OrderController(ILogger<OrderController> logger)
+        public OrderController(ILogger<OrderController> logger, IOrderRepository repository)
         {
             _logger = logger;
-            _repo = new InMemoryOrderRepository();
+            _repo = repository;
         }
 
         [HttpGet("/{orderId}")]

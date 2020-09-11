@@ -44,7 +44,6 @@
           <e p="SubmitOrderInteractor.cs" t="Include" />
         </e>
       </e>
-      <e p="WeatherForecast.cs" t="Include" />
     </e>
   </component>
 </project>
