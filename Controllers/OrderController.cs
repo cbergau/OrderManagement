@@ -23,25 +23,25 @@ namespace OrderManagement.Controllers
             _repo = repository;
         }
 
-        [HttpGet("/")]
+        [HttpGet("/orders")]
         public IEnumerable<Order> GetAll()
         {
             return new GetOrdersInteractor(_repo).Execute();
         }
 
-        [HttpGet("/{orderId}")]
+        [HttpGet("/orders/{orderId}")]
         public Order Get(string orderId)
         {
             return new GetOrderInteractor(_repo).Execute(orderId);
         }
 
-        [HttpGet("/cancel/{orderId}")]
+        [HttpGet("/orders/cancel/{orderId}")]
         public Order Cancel(string orderId)
         {
             return new CancelOrderInteractor(_repo).Execute(orderId);
         }
 
-        [HttpGet("/submit")]
+        [HttpGet("/orders/submit")]
         public Order Submit()
         {
             return new SubmitOrderInteractor(_repo).Execute();
