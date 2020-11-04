@@ -1,4 +1,5 @@
-﻿using OrderManagement.Entities;
+﻿using System;
+using OrderManagement.Entities;
 using OrderManagement.Repository;
 
 namespace OrderManagement.Usecases.GetOrder

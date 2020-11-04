@@ -21,7 +21,7 @@ namespace OrderManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IOrderRepository>(provider => new EntityFrameworkOrderRepository());
+            services.AddSingleton<IOrderRepository>(provider => new FileOrderRepository());
 
             services.AddSwaggerGen(c =>
             {
