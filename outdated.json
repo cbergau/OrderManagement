@@ -1,0 +1,68 @@
+{
+  "Projects": [
+    {
+      "Name": "OrderManagement",
+      "FilePath": "C:\\Users\\bergau\\RiderProjects\\OrderManagement\\OrderManagement.csproj",
+      "TargetFrameworks": [
+        {
+          "Name": ".NETCoreApp,Version=v3.1",
+          "Dependencies": [
+            {
+              "Name": "Microsoft.EntityFrameworkCore.Design",
+              "ResolvedVersion": "3.1.8",
+              "LatestVersion": "3.1.9",
+              "UpgradeSeverity": "Patch"
+            },
+            {
+              "Name": "Microsoft.EntityFrameworkCore.Sqlite",
+              "ResolvedVersion": "3.1.8",
+              "LatestVersion": "3.1.9",
+              "UpgradeSeverity": "Patch"
+            },
+            {
+              "Name": "Swashbuckle.AspNetCore",
+              "ResolvedVersion": "5.5.1",
+              "LatestVersion": "5.6.3",
+              "UpgradeSeverity": "Minor"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "OrderManagementTest",
+      "FilePath": "C:\\Users\\bergau\\RiderProjects\\OrderManagementTest\\OrderManagementTest.csproj",
+      "TargetFrameworks": [
+        {
+          "Name": ".NETCoreApp,Version=v3.1",
+          "Dependencies": [
+            {
+              "Name": "coverlet.collector",
+              "ResolvedVersion": "1.2.0",
+              "LatestVersion": "1.3.0",
+              "UpgradeSeverity": "Minor"
+            },
+            {
+              "Name": "Microsoft.NET.Test.Sdk",
+              "ResolvedVersion": "16.5.0",
+              "LatestVersion": "16.7.1",
+              "UpgradeSeverity": "Minor"
+            },
+            {
+              "Name": "xunit.runner.visualstudio",
+              "ResolvedVersion": "2.4.0",
+              "LatestVersion": "2.4.3",
+              "UpgradeSeverity": "Patch"
+            },
+            {
+              "Name": "xunit",
+              "ResolvedVersion": "2.4.0",
+              "LatestVersion": "2.4.1",
+              "UpgradeSeverity": "Patch"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
