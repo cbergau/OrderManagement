@@ -2,24 +2,13 @@
 {
     public class Order
     {
-        private string ID;
-        private int state;
+        public int State { get; set; }
 
-        public int State
-        {
-            get => state;
-            set => state = value;
-        }
-
-        public string Id
-        {
-            get => ID;
-            set => ID = value;
-        }
+        public string Id { get; set; }
 
         public void Cancel()
         {
-            state = 1;
+            State = 1;
         }
     }
 }
