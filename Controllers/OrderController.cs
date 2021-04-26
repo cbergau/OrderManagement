@@ -7,10 +7,10 @@ using Microsoft.Extensions.Logging;
 using OrderManagement.Entities;
 using OrderManagement.Presenter;
 using OrderManagement.Repository;
-using OrderManagement.Usecases.CancelOrder;
-using OrderManagement.Usecases.GetOrder;
-using OrderManagement.Usecases.GetOrders;
-using OrderManagement.Usecases.SubmitOrder;
+using OrderManagement.UseCases.CancelOrder;
+using OrderManagement.UseCases.GetOrder;
+using OrderManagement.UseCases.GetOrders;
+using OrderManagement.UseCases.SubmitOrder;
 
 namespace OrderManagement.Controllers
 {
@@ -40,15 +40,18 @@ namespace OrderManagement.Controllers
         public void Get(string orderId)
         {
             var presenter = new GetOrderPresenter(_accessor.HttpContext.Response);
-            var useCase = new GetOrderInteractor(_repo, presenter);
+            var useCase = new GetOrderUseCase(_repo, presenter);
             
             useCase.Execute(orderId);
         }
 
         [HttpGet("/orders/cancel/{orderId}")]
-        public Order Cancel(string orderId)
+        public void Cancel(string orderId)
         {
-            return new CancelOrderInteractor(_repo).Execute(orderId);
+            var presenter = new CancelOrderPresenter(_accessor.HttpContext.Response);
+            var useCase = new CancelOrderUseCase(_repo, presenter);
+            
+            useCase.Execute(orderId);
         }
 
         [HttpGet("/orders/submit")]

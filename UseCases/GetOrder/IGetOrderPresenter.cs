@@ -1,4 +1,4 @@
-namespace OrderManagement.Usecases.GetOrder
+namespace OrderManagement.UseCases.GetOrder
 {
     public interface IGetOrderPresenter
     {

@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using OrderManagement.Usecases.GetOrder;
+using OrderManagement.UseCases.GetOrder;
 
 namespace OrderManagement.Presenter
 {

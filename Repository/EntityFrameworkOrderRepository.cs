@@ -14,7 +14,7 @@ namespace OrderManagement.Repository
             using var db = new OrderContext();
             var entity = db.Find<OrderEntity>(orderId);
 
-            return new Order {Id = entity.id, State = entity.state};
+            return new Order {Id = entity.id, State = (OrderStates) entity.state};
         }
 
         public void Save(Order order)
@@ -29,7 +29,7 @@ namespace OrderManagement.Repository
             else
             {
                 var fromDb = db.Find<OrderEntity>(order.Id);
-                fromDb.state = order.State;
+                fromDb.state = (int) order.State;
             }
 
             db.SaveChanges();
@@ -40,13 +40,21 @@ namespace OrderManagement.Repository
             using var db = new OrderContext();
 
             return db.Orders
-                .Select(orderEntity => new Order {Id = orderEntity.id, State = orderEntity.state})
+                .Select(orderEntity => new Order
+                {
+                    Id = orderEntity.id,
+                    State = (OrderStates) orderEntity.state
+                })
                 .ToList();
         }
 
         private static OrderEntity CreateNewOrder(Order order, DbContext db)
         {
-            var orderEntity = new OrderEntity {id = order.Id ?? Guid.NewGuid().ToString(), state = order.State};
+            var orderEntity = new OrderEntity
+            {
+                id = order.Id ?? Guid.NewGuid().ToString(),
+                state = (int) order.State
+            };
             db.Add(orderEntity);
             return orderEntity;
         }

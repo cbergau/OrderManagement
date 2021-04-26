@@ -2,7 +2,7 @@
 using OrderManagement.Entities;
 using OrderManagement.Repository;
 
-namespace OrderManagement.Usecases.GetOrders
+namespace OrderManagement.UseCases.GetOrders
 {
     public class GetOrdersInteractor
     {

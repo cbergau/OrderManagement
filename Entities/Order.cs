@@ -1,14 +1,21 @@
-﻿namespace OrderManagement.Entities
+﻿using OrderManagement.Entities.Exceptions;
+
+namespace OrderManagement.Entities
 {
     public class Order
     {
-        public int State { get; set; }
+        public OrderStates State { get; set; }
 
         public string Id { get; set; }
 
         public void Cancel()
         {
-            State = 1;
+            if (State == OrderStates.CANCELLED)
+            {
+                throw new OrderAlreadyCancelledException();
+            }
+
+            State = OrderStates.CANCELLED;
         }
     }
 }
