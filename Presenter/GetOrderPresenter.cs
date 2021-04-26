@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using OrderManagement.Usecases.GetOrder;
 
 namespace OrderManagement.Presenter
@@ -7,7 +8,6 @@ namespace OrderManagement.Presenter
     public class GetOrderPresenter : IGetOrderPresenter
     {
         private readonly HttpResponse _httpResponse;
-        private OrderViewModel _viewModel;
 
         public GetOrderPresenter(HttpResponse httpResponse)
         {
@@ -16,8 +16,9 @@ namespace OrderManagement.Presenter
 
         public void Present(OrderResponseModel order)
         {
-            _viewModel = new OrderViewModel {id = order.id, state = order.state};
-            var bytes = Encoding.UTF8.GetBytes("{somejson: 1}");
+            var viewModel = new OrderViewModel {id = order.id, state = order.state};
+            var json = JsonConvert.SerializeObject(viewModel);
+            var bytes = Encoding.UTF8.GetBytes(json);
             _httpResponse.Body.WriteAsync(bytes);
         }
     }
