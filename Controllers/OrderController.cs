@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OrderManagement.Entities;
+using OrderManagement.Presenter;
 using OrderManagement.Repository;
 using OrderManagement.Usecases.CancelOrder;
 using OrderManagement.Usecases.GetOrder;
@@ -16,11 +20,14 @@ namespace OrderManagement.Controllers
     {
         private readonly ILogger<OrderController> _logger;
         private readonly IOrderRepository _repo;
+        private readonly IHttpContextAccessor _accessor;
 
-        public OrderController(ILogger<OrderController> logger, IOrderRepository repository)
+        public OrderController(ILogger<OrderController> logger, IOrderRepository repository,
+            IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _repo = repository;
+            _accessor = httpContextAccessor;
         }
 
         [HttpGet("/orders")]
@@ -30,9 +37,12 @@ namespace OrderManagement.Controllers
         }
 
         [HttpGet("/orders/{orderId}")]
-        public Order Get(string orderId)
+        public void Get(string orderId)
         {
-            return new GetOrderInteractor(_repo).Execute(orderId);
+            var presenter = new GetOrderPresenter(_accessor.HttpContext.Response);
+            var useCase = new GetOrderInteractor(_repo, presenter);
+            
+            useCase.Execute(orderId);
         }
 
         [HttpGet("/orders/cancel/{orderId}")]

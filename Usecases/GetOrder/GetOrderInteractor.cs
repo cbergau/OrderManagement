@@ -1,5 +1,4 @@
-﻿using System;
-using OrderManagement.Entities;
+﻿using OrderManagement.Entities;
 using OrderManagement.Repository;
 
 namespace OrderManagement.Usecases.GetOrder
@@ -7,16 +6,18 @@ namespace OrderManagement.Usecases.GetOrder
     public class GetOrderInteractor
     {
         private readonly IOrderRepository _repository;
+        private readonly IGetOrderPresenter _presenter;
 
-        public GetOrderInteractor(IOrderRepository repository)
+        public GetOrderInteractor(IOrderRepository repository, IGetOrderPresenter presenter)
         {
             _repository = repository;
+            _presenter = presenter;
         }
 
-        public Order Execute(string orderId)
+        public void Execute(string orderId)
         {
             var order = _repository.Find(orderId);
-            return order;
+            _presenter.Present(new OrderResponseModel {id = order.Id, state = order.State});
         }
     }
 }
