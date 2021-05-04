@@ -8,7 +8,9 @@ namespace OrderManagement.Entities
 
         public string Id { get; set; }
 
-        public void Cancel()
+        public string CancelReason { get; set; }
+
+        public void Cancel(string reason)
         {
             if (State == OrderStates.CANCELLED)
             {
@@ -16,6 +18,7 @@ namespace OrderManagement.Entities
             }
 
             State = OrderStates.CANCELLED;
+            CancelReason = reason;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -41,17 +39,18 @@ namespace OrderManagement.Controllers
         {
             var presenter = new GetOrderPresenter(_accessor.HttpContext.Response);
             var useCase = new GetOrderUseCase(_repo, presenter);
-            
+
             useCase.Execute(orderId);
         }
 
-        [HttpGet("/orders/cancel/{orderId}")]
-        public void Cancel(string orderId)
+        [HttpPost("/orders/{orderId}/cancel")]
+        public void Cancel(string orderId, CancelOrderHttpRequest httpRequest)
         {
             var presenter = new CancelOrderPresenter(_accessor.HttpContext.Response);
             var useCase = new CancelOrderUseCase(_repo, presenter);
-            
-            useCase.Execute(orderId);
+            var request = new CancelOrderRequest {Reason = httpRequest.reason};
+
+            useCase.Execute(orderId, request);
         }
 
         [HttpGet("/orders/submit")]
@@ -59,5 +58,10 @@ namespace OrderManagement.Controllers
         {
             return new SubmitOrderInteractor(_repo).Execute();
         }
+    }
+
+    public class CancelOrderHttpRequest
+    {
+        public string reason { get; set; }
     }
 }
