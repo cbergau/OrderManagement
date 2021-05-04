@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using OrderManagement.UseCases.CancelOrder;
 
 namespace OrderManagement.Presenter
@@ -19,15 +22,30 @@ namespace OrderManagement.Presenter
             _response.StatusCode = StatusCodes.Status204NoContent;
         }
 
-        public void PresentDomainError(string code)
+        public void PresentDomainError(string errorId)
         {
             _response.StatusCode = StatusCodes.Status400BadRequest;
-            _response.Body.WriteAsync(Encoding.UTF8.GetBytes(code));
+            _response.Body.WriteAsync(Encoding.UTF8.GetBytes(errorId));
         }
 
         public void PresentError()
         {
             _response.StatusCode = StatusCodes.Status500InternalServerError;
+        }
+
+        public void PresentValidationErrors(List<ValidationResult> validationResults)
+        {
+            var errors = new Dictionary<string, string>();
+            
+            validationResults.ForEach(result =>
+            {
+                var enumerator = result.MemberNames.GetEnumerator();
+                enumerator.MoveNext();
+                errors.Add(enumerator.Current, result.ErrorMessage);
+            });
+
+            _response.StatusCode = StatusCodes.Status400BadRequest;
+            _response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(errors)));
         }
     }
 }

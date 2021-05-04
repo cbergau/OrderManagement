@@ -19,11 +19,15 @@ namespace OrderManagement.UseCases.CancelOrder
 
         public void Execute(string orderId, CancelOrderRequest request)
         {
-            // Validate Request (TODO THIS DOES NOT WORK YET)
-            var r = new CancelOrderRequest {Reason = "a"};
             var errors = new List<ValidationResult>();
-            var context = new ValidationContext(r);
-            var isValid = Validator.TryValidateObject(r, context, errors, true);
+            var context = new ValidationContext(request);
+            var isValid = Validator.TryValidateObject(request, context, errors, true);
+
+            if (!isValid)
+            {
+                _presenter.PresentValidationErrors(errors);
+                return;
+            }
 
             try
             {
