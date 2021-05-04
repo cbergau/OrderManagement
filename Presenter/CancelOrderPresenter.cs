@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -36,12 +35,12 @@ namespace OrderManagement.Presenter
         public void PresentValidationErrors(List<ValidationResult> validationResults)
         {
             var errors = new Dictionary<string, string>();
-            
+
             validationResults.ForEach(result =>
             {
-                var enumerator = result.MemberNames.GetEnumerator();
+                var enumerator = result.MemberNames.GetEnumerator()!;
                 enumerator.MoveNext();
-                errors.Add(enumerator.Current, result.ErrorMessage);
+                errors.Add(enumerator.Current!, result.ErrorMessage);
             });
 
             _response.StatusCode = StatusCodes.Status400BadRequest;
