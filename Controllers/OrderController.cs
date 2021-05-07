@@ -46,10 +46,10 @@ namespace OrderManagement.Controllers
         [HttpPost("/orders/{orderId}/cancel")]
         public void Cancel(string orderId, CancelOrderHttpRequest httpRequest)
         {
+            var request = new CancelOrderRequest {Reason = httpRequest.reason};
             var presenter = new CancelOrderPresenter(_accessor.HttpContext.Response);
             var useCase = new CancelOrderUseCase(_repo, presenter);
-            var request = new CancelOrderRequest {Reason = httpRequest.reason};
-
+            
             useCase.Execute(orderId, request);
         }
 

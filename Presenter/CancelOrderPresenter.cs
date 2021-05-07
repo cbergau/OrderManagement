@@ -16,15 +16,15 @@ namespace OrderManagement.Presenter
             _response = response;
         }
 
-        public void PresentSuccess()
-        {
-            _response.StatusCode = StatusCodes.Status204NoContent;
-        }
-
         public void PresentDomainError(string errorId)
         {
             _response.StatusCode = StatusCodes.Status400BadRequest;
             _response.Body.WriteAsync(Encoding.UTF8.GetBytes(errorId));
+        }
+
+        public void PresentSuccess()
+        {
+            _response.StatusCode = StatusCodes.Status204NoContent;
         }
 
         public void PresentError()
@@ -43,8 +43,10 @@ namespace OrderManagement.Presenter
                 errors.Add(enumerator.Current!, result.ErrorMessage);
             });
 
+            var errorsAsJson = JsonConvert.SerializeObject(errors);
+            var buffer = Encoding.UTF8.GetBytes(errorsAsJson);
+            _response.Body.WriteAsync(buffer);
             _response.StatusCode = StatusCodes.Status400BadRequest;
-            _response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(errors)));
         }
     }
 }
